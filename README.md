@@ -9,3 +9,24 @@ Creating a simple rpg, name still pending.  Users will be able to create charact
 * As a user I want to fight monsters to get experience and level up as well as aquire loot.
 * As a user I want to sell loot I dont need for gold.
 * As a user I want to  be able to purchase gear for gold.
+
+## ERD
+
+![ERD image](ERD.PNG)
+
+## Wireframes
+
+### Sign In
+![Sign In](SignInPage.PNG)
+### Sign Up
+![Sign Up](SignUpPage.PNG)
+### Character Select
+![Character Select](CharacterSelection.PNG)
+### Character Page
+![Character Page](CharacterInfo.PNG)
+### Inventory
+![Inventory](Inventory.PNG)
+### Monster List
+![Monster List](MonsterList.PNG)
+### Battle Page
+![Battle Page](BattlePage.PNG)
