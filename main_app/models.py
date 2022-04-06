@@ -13,6 +13,10 @@ class Character(models.Model):
     name = models.CharField(max_length=50)
     charClass = models.CharField(max_length=20, choices = CLASS_CHOICES)
     level = models.IntegerField(default=1)
+    health = models.IntegerField(default=100)
+    mana = models.IntegerField(default=50)
+    exp = models.IntegerField(default=0)
+    expReq = models.IntegerField(default=1000)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
