@@ -67,3 +67,8 @@ class CharCreation(CreateView):
         self.object.user = self.request.user
         self.object.save()
         return HttpResponseRedirect('/character_select/'+self.object.user.username)
+
+@method_decorator(login_required, name="dispatch")
+class CharInfo(DetailView):
+    model = Character
+    template_name = "character_info.html"

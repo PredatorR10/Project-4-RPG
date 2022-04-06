@@ -4,6 +4,7 @@
     <h1>{{ username }}'s characters</h1>
     {% for character in characters %}
         <p>{{character.name}}</p>
+        <a href="{% url 'character_info' character.pk %}">Enter</a>
     {% endfor %}
     <a href="/character_creation">Create</a>
 {% endblock %}
