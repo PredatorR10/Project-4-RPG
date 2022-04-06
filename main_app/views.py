@@ -1,3 +1,4 @@
+from pyexpat import model
 from django.shortcuts import render
 from django.views.generic import DetailView
 from django.views.generic.base import TemplateView
@@ -53,4 +54,16 @@ def login_view(request):
 @login_required
 def charSel(request, username):
     user = User.objects.get(username=username)
-    return render(request, 'character_select.html', {'username': username})
+    characters = Character.objects.filter(user=user)
+    return render(request, 'character_select.html', {'username': username, 'characters': characters})
+
+@method_decorator(login_required, name='dispatch')
+class CharCreation(CreateView):
+    model = Character
+    fields = ['name', 'charClass']
+    template_name = "character_create.html"
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect('/character_select/'+self.object.user.username)

@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{{ username }}Characters</h1>
+    <h1>{{ username }}'s characters</h1>
+    {% for character in characters %}
+        <p>{{character.name}}</p>
+    {% endfor %}
+    <a href="/character_creation">Create</a>
 {% endblock %}
