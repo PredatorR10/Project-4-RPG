@@ -24,3 +24,9 @@ class Character(models.Model):
     
     class Meta:
         ordering = ['name']
+
+class Monster(models.Model):
+    name = models.CharField(max_length=50)
+    level = models.IntegerField()
+    health = models.IntegerField(default=100)
+    mana = models.IntegerField(default=50)
