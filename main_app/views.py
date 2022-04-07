@@ -6,7 +6,7 @@ from django.views import View
 from django.views.generic.edit import DeleteView, CreateView, UpdateView
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from .models import Character
+from .models import Character, Monster
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -72,3 +72,12 @@ class CharCreation(CreateView):
 class CharInfo(DetailView):
     model = Character
     template_name = "character_info.html"
+
+@method_decorator(login_required, name="dispatch")
+class Monsters(TemplateView):
+    template_name = "monster_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["monsters"] = Monster.objects.all()
+        return context
