@@ -7,6 +7,6 @@ urlpatterns = [
     path('signup/', views.signup_view, name='signup'),
     path('character_select/<username>/', views.charSel, name='character_select'),
     path('character_creation/', views.CharCreation.as_view(), name='character_create'),
-    path('character_info/<int:pk>', views.CharInfo.as_view(), name="character_info"),
-    path('monster_list/<int:pk>', views.Monsters.as_view(), name="monster_list")
+    path('<charname>/', views.charInfo, name="character_info"),
+    path('<charname>/monster_list/', views.monsters, name="monster_list"),
 ]

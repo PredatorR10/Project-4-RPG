@@ -68,16 +68,13 @@ class CharCreation(CreateView):
         self.object.save()
         return HttpResponseRedirect('/character_select/'+self.object.user.username)
 
-@method_decorator(login_required, name="dispatch")
-class CharInfo(DetailView):
-    model = Character
-    template_name = "character_info.html"
+@login_required
+def charInfo(request, charname):
+    character = Character.objects.get(name=charname)
+    return render(request, 'character_info.html', {'character': character})
 
-@method_decorator(login_required, name="dispatch")
-class Monsters(TemplateView):
-    template_name = "monster_list.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["monsters"] = Monster.objects.all()
-        return context
+@login_required
+def monsters(request, charname):
+    character = Character.objects.get(name=charname)
+    monsters = Monster.objects.all()
+    return render(request, 'monster_list.html', {'character': character, 'monsters': monsters})
