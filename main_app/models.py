@@ -21,10 +21,16 @@ class Character(models.Model):
         return self.name
     
     class Meta:
-        ordering = ['name']
+        ordering = ['level']
 
 class Monster(models.Model):
     name = models.CharField(max_length=50)
     level = models.IntegerField()
     health = models.IntegerField(default=100)
     mana = models.IntegerField(default=50)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['level']
