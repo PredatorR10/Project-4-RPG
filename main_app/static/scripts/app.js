@@ -57,8 +57,6 @@ if(data.page === "battle") {
     document.getElementById("attack").addEventListener("click", function(){
         attack()
     })
-
-    console.log(playerHP, playerMP, monsterHP, monsterMP)
 }
 
 console.log(data)
