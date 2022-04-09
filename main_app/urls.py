@@ -9,4 +9,5 @@ urlpatterns = [
     path('character_creation/', views.CharCreation.as_view(), name='character_create'),
     path('<charname>/', views.charInfo, name="character_info"),
     path('<charname>/monster_list/', views.monsters, name="monster_list"),
+    path('<charname>/battle/<monstername>/', views.battle, name="battle")
 ]

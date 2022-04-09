@@ -1,7 +1,10 @@
 {% extends 'base.html' %} 
 
 {% block content %}
+    <div style="display: none" id="jsonData" data-json="{{data}}"></div>
     <h1>{{character.name}}</h1>
-    <h3>Class: {{character.charClass}}</h3>
-    <h3>Level: {{character.level}}</h3>
+    <h3>Level {{character.level}} {{character.charClass}}</h3>
+    <p>Experience: <progress id="exp" value="50" max="100"></progress></p>
+    <h3 id="health">Health: </h3>
+    <h3 id="mana">Mana: </h3>
 {% endblock %}

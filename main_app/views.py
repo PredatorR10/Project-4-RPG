@@ -12,6 +12,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from json import dumps
 
 # Create your views here.
 
@@ -71,10 +72,26 @@ class CharCreation(CreateView):
 @login_required
 def charInfo(request, charname):
     character = Character.objects.get(name=charname)
-    return render(request, 'character_info.html', {'character': character})
+    data = dumps({
+        "page": "charInfo",
+        "level": character.level,
+        "exp": character.exp,
+        "expReq": character.expReq
+    })
+    return render(request, 'character_info.html', {'character': character, 'data': data})
 
 @login_required
 def monsters(request, charname):
     character = Character.objects.get(name=charname)
     monsters = Monster.objects.all()
     return render(request, 'monster_list.html', {'character': character, 'monsters': monsters})
+
+@login_required
+def battle(request, charname, monstername):
+    character = Character.objects.get(name=charname)
+    monster = Monster.objects.get(name=monstername)
+    data = dumps({
+        "page": "battle",
+        "characterName": character.name
+    })
+    return render(request, 'battle.html', {'character': character, 'monster': monster, 'data': data})
