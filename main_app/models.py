@@ -13,10 +13,23 @@ class Character(models.Model):
     name = models.CharField(max_length=50)
     charClass = models.CharField(max_length=20, choices = CLASS_CHOICES)
     level = models.IntegerField(default=1)
+    exp = models.IntegerField(default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
-    
+
     class Meta:
-        ordering = ['name']
+        ordering = ['level']
+
+class Monster(models.Model):
+    name = models.CharField(max_length=50)
+    level = models.IntegerField()
+    health = models.IntegerField(default=100)
+    mana = models.IntegerField(default=50)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['level']

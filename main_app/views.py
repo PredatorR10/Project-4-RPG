@@ -6,12 +6,13 @@ from django.views import View
 from django.views.generic.edit import DeleteView, CreateView, UpdateView
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from .models import Character
+from .models import Character, Monster
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from json import dumps
 
 # Create your views here.
 
@@ -68,7 +69,29 @@ class CharCreation(CreateView):
         self.object.save()
         return HttpResponseRedirect('/character_select/'+self.object.user.username)
 
-@method_decorator(login_required, name="dispatch")
-class CharInfo(DetailView):
-    model = Character
-    template_name = "character_info.html"
+@login_required
+def charInfo(request, charname):
+    character = Character.objects.get(name=charname)
+    data = dumps({
+        "page": "charInfo",
+        "level": character.level,
+        "exp": character.exp,
+    })
+    return render(request, 'character_info.html', {'character': character, 'data': data})
+
+@login_required
+def monsters(request, charname):
+    character = Character.objects.get(name=charname)
+    monsters = Monster.objects.all()
+    return render(request, 'monster_list.html', {'character': character, 'monsters': monsters})
+
+@login_required
+def battle(request, charname, monstername):
+    character = Character.objects.get(name=charname)
+    monster = Monster.objects.get(name=monstername)
+    data = dumps({
+        "page": "battle",
+        "level": character.level,
+        "exp": character.exp,
+    })
+    return render(request, 'battle.html', {'character': character, 'monster': monster, 'data': data})
