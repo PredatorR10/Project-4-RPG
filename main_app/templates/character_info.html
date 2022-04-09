@@ -1,5 +1,8 @@
 {% extends 'base.html' %} 
-
+{% block addlink %}
+    <a href="/{{character.name}}">Character Page</a>
+    <a href="/{{character.name}}/monster_list">Monsters</a>
+{% endblock %}
 {% block content %}
     <div style="display: none" id="jsonData" data-json="{{data}}"></div>
     <h1>{{character.name}}</h1>
@@ -7,4 +10,5 @@
     <p>Experience: <progress id="exp" value="50" max="100"></progress></p>
     <h3 id="health">Health: </h3>
     <h3 id="mana">Mana: </h3>
+    <h3 id="attack">Attack: </h3>
 {% endblock %}

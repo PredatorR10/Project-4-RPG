@@ -76,7 +76,6 @@ def charInfo(request, charname):
         "page": "charInfo",
         "level": character.level,
         "exp": character.exp,
-        "expReq": character.expReq
     })
     return render(request, 'character_info.html', {'character': character, 'data': data})
 
@@ -92,6 +91,7 @@ def battle(request, charname, monstername):
     monster = Monster.objects.get(name=monstername)
     data = dumps({
         "page": "battle",
-        "characterName": character.name
+        "level": character.level,
+        "exp": character.exp,
     })
     return render(request, 'battle.html', {'character': character, 'monster': monster, 'data': data})

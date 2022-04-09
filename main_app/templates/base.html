@@ -12,6 +12,7 @@
 <body>
     <nav>
         {% if user.is_authenticated %}
+            {% block addlink %}{% endblock %}
             <a href="/character_select/{{user.username}}">Character Selection</a>
             <a href="/logout">Logout</a>
         {% else %}

@@ -14,7 +14,6 @@ class Character(models.Model):
     charClass = models.CharField(max_length=20, choices = CLASS_CHOICES)
     level = models.IntegerField(default=1)
     exp = models.IntegerField(default=0)
-    expReq = models.IntegerField(default=1000)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
