@@ -25,8 +25,9 @@ class Character(models.Model):
 class Monster(models.Model):
     name = models.CharField(max_length=50)
     level = models.IntegerField()
-    health = models.IntegerField(default=100)
-    mana = models.IntegerField(default=50)
+    health = models.IntegerField()
+    mana = models.IntegerField()
+    expYield = models.IntegerField()
 
     def __str__(self):
         return self.name
