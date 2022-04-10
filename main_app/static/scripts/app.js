@@ -37,6 +37,7 @@ if(data.page === "battle") {
     document.getElementById("exp").value = data.exp
     document.getElementById("exp").max = calcExpReq()
     const log = document.getElementById("combatLog")
+    let turn = true
 
     const refresh = () => {
         document.getElementById("playerHealth").value = playerHP
@@ -47,16 +48,29 @@ if(data.page === "battle") {
 
     refresh()
 
-    function attack(){
-        monsterHP -= playerAttack
+    const monsterAttack = () => {
+        playerHP -= 10
         let p = document.createElement("p")
-        log.append(`${player} attacks ${monster} and deals ${playerAttack} damage!`, p)
+        log.append(`${monster} attacks ${player} and deals ${10} damage!`, p)
         refresh()
+        turn = true
     }
 
-    document.getElementById("attack").addEventListener("click", function(){
+    const attack = () => {
+        if(turn) {
+            turn = false
+            monsterHP -= playerAttack
+            let p = document.createElement("p")
+            log.append(`${player} attacks ${monster} and deals ${playerAttack} damage!`, p)
+            refresh()
+            setTimeout(() => { monsterAttack()}, 700)
+        }
+    }
+
+    document.getElementById("attack").addEventListener("click", () => {
         attack()
     })
+
 }
 
 console.log(data)
