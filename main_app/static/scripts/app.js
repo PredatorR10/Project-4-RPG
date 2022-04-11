@@ -8,10 +8,6 @@ const calcMana = () => {
     return ((data.level - 1) * 10 + 50)
 }
 
-const calcExpReq = () => {
-    return ((data.level - 1) * 500 + 1000)
-}
-
 const calcAttack = () => {
     return ((data.level - 1) * 3 + 7)
 }
@@ -20,8 +16,6 @@ if(data.page === "charInfo") {
     document.getElementById("health").innerText = `Health: ${calcHealth()}`
     document.getElementById("mana").innerText = `Mana: ${calcMana()}`
     document.getElementById("attack").innerText = `Attack: ${calcAttack()}`
-    document.getElementById("exp").value = data.exp
-    document.getElementById("exp").max = calcExpReq()
 }
 
 if(data.page === "battle") {
@@ -34,8 +28,6 @@ if(data.page === "battle") {
     document.getElementById("playerMana").max = calcMana()
     let monsterHP = document.getElementById("monsterHealth").max
     let monsterMP = document.getElementById("monsterMana").max
-    document.getElementById("exp").value = data.exp
-    document.getElementById("exp").max = calcExpReq()
     const log = document.getElementById("combatLog")
     let turn = true
 

@@ -75,7 +75,6 @@ def charInfo(request, charname):
     data = dumps({
         "page": "charInfo",
         "level": character.level,
-        "exp": character.exp,
     })
     return render(request, 'character_info.html', {'character': character, 'data': data})
 
@@ -92,7 +91,6 @@ def battle(request, charname, monstername):
     data = dumps({
         "page": "battle",
         "level": character.level,
-        "exp": character.exp,
     })
     if request.method == 'POST':
         character.addExp(monster.expYield)
