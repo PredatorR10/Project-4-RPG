@@ -22,6 +22,7 @@ class Character(models.Model):
         if self.exp >= self.expReq:
             self.exp -= self.expReq
             self.expReq += 500
+            self.level += 1
         return self.exp
 
     def __str__(self):
