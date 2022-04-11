@@ -22,8 +22,10 @@
     <p>Health: <progress id="monsterHealth" value="{{monster.health}}" max="{{monster.health}}"></progress></p>
     <p>Mana: <progress id="monsterMana" value="{{monster.mana}}" max="{{monster.mana}}"></progress></p>
     
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Submit</button>
-    </form>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 {% endblock %}

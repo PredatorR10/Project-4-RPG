@@ -14,10 +14,14 @@ class Character(models.Model):
     charClass = models.CharField(max_length=20, choices = CLASS_CHOICES)
     level = models.IntegerField(default=1)
     exp = models.IntegerField(default=0)
+    expReq = models.IntegerField(default=1000)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def addExp(self, gain):
         self.exp += gain
+        if self.exp >= self.expReq:
+            self.exp -= self.expReq
+            self.expReq += 500
         return self.exp
 
     def __str__(self):
