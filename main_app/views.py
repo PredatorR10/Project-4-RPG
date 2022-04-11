@@ -94,4 +94,9 @@ def battle(request, charname, monstername):
         "level": character.level,
         "exp": character.exp,
     })
+    if request.method == 'POST':
+        character.addExp(monster.expYield)
+        character.save()
+        return HttpResponseRedirect('/'+character.name+'/monster_list/')
+
     return render(request, 'battle.html', {'character': character, 'monster': monster, 'data': data})

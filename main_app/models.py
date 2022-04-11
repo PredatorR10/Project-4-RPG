@@ -16,6 +16,10 @@ class Character(models.Model):
     exp = models.IntegerField(default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def addExp(self, gain):
+        self.exp += gain
+        return self.exp
+
     def __str__(self):
         return self.name
 
