@@ -9,8 +9,8 @@
     <h1 id="player">{{character.name}}</h1>
     <h3>Level {{character.level}}</h3>
     <button id="attack">Attack</button>
-    <p>Health: <progress id="playerHealth" value="50" max="100"></progress></p>
-    <p>Mana: <progress id="playerMana" value="50" max="100"></progress></p>
+    <p>Health: <progress id="playerHealth" value="{{character.health}}" max="{{character.health}}"></progress></p>
+    <p>Mana: <progress id="playerMana" value="{{character.mana}}" max="{{character.mana}}"></progress></p>
     <p>Experience: <progress value="{{character.exp}}" max="{{character.expReq}}"></progress></p>
 
     <div id="combatLog">
@@ -22,11 +22,11 @@
     <p>Health: <progress id="monsterHealth" value="{{monster.health}}" max="{{monster.health}}"></progress></p>
     <p>Mana: <progress id="monsterMana" value="{{monster.mana}}" max="{{monster.mana}}"></progress></p>
     
-    <div id="defeat">
+    <div style="display: none" id="defeat">
         <a href="/{{character.name}}/monster_list">Return</a>
     </div>
 
-    <div id="victory">
+    <div style="display: none" id="victory">
         <form method="post">
             {% csrf_token %}
             <button type="submit">Submit</button>

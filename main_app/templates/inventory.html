@@ -18,12 +18,21 @@
     <h1>Inventory:</h1>
     {% for each in character.inventory_set.all %}
         <p>{{each.item.name}}</p>
-        <p>{{each.qty}}</p>
+        <p>Quantity: {{each.qty}}</p>
+        {% if each.item.statHealth %}
+            <p>Health +{{each.item.statHealth}}</p>
+        {% endif %}
+        {% if each.item.statAttack %}
+            <p>Attack +{{each.item.statAttack}}</p>
+        {% endif %}
         {% if each.item.equipable and not each.equiped %}
             <form method="post">
                 {% csrf_token %}
                 <button name="equip" value="{{each.item.name}}">Equip</button>
             </form>
+        {% endif %}
+        {% if each.item.equipable and each.equiped %}
+            <p>Equiped</p>
         {% endif %}
     {% endfor %}
 {% endblock %}

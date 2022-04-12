@@ -1,33 +1,14 @@
 let data = JSON.parse(document.getElementById("jsonData").getAttribute("data-json"))
 
-const calcHealth = () => {
-    return ((data.level - 1) * 20 + 100)
-}
-
-const calcMana = () => {
-    return ((data.level - 1) * 10 + 50)
-}
-
-const calcAttack = () => {
-    return ((data.level - 1) * 3 + 7)
-}
-
-if(data.page === "charInfo") {
-    document.getElementById("health").innerText = `Health: ${calcHealth()}`
-    document.getElementById("mana").innerText = `Mana: ${calcMana()}`
-    document.getElementById("attack").innerText = `Attack: ${calcAttack()}`
-}
-
 if(data.page === "battle") {
     const player = document.getElementById("player").innerText
     const monster = document.getElementById("monster").innerText
-    let playerHP = calcHealth()
-    let playerMP = calcMana()
-    let playerAttack = calcAttack()
-    document.getElementById("playerHealth").max = calcHealth()
-    document.getElementById("playerMana").max = calcMana()
+    let playerHP = document.getElementById("playerHealth").max
+    let playerMP = document.getElementById("playerMana").max
+    let playerAttack = data.charAttack
     let monsterHP = document.getElementById("monsterHealth").max
     let monsterMP = document.getElementById("monsterMana").max
+    let monsterAttack = data.monAttack
     const log = document.getElementById("combatLog")
     let turn = true
 
@@ -38,31 +19,34 @@ if(data.page === "battle") {
         document.getElementById("monsterMana").value = monsterMP
     }
 
-    refresh()
-
-    const monsterAttack = () => {
-        playerHP -= 10
-        let p = document.createElement("p")
-        log.append(`${monster} attacks ${player} and deals ${10} damage!`, p)
-        refresh()
-        turn = true
+    const monsterTurn = () => {
+        if(monsterHP > 0) {
+            playerHP -= monsterAttack
+            let p = document.createElement("p")
+            log.append(`${monster} attacks ${player} and deals ${monsterAttack} damage!`, p)
+            refresh()
+            if(playerHP > 0) {
+                turn = true
+            } else {
+                document.getElementById("defeat").style.display = "block"
+            }
+        } else {
+            document.getElementById("victory").style.display = "block"
+        }
     }
 
     const attack = () => {
-        if(turn) {
+        if(turn && playerHP > 0 && monsterHP > 0) {
             turn = false
             monsterHP -= playerAttack
             let p = document.createElement("p")
             log.append(`${player} attacks ${monster} and deals ${playerAttack} damage!`, p)
             refresh()
-            setTimeout(() => { monsterAttack()}, 700)
+            setTimeout(() => { monsterTurn()}, 700)
         }
     }
 
     document.getElementById("attack").addEventListener("click", () => {
         attack()
     })
-
 }
-
-console.log(data)
