@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import admin
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -24,9 +25,9 @@ class Character(models.Model):
     exp = models.IntegerField(default=0)
     expReq = models.IntegerField(default=1000)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    inventory = models.ManyToManyField(
+    inv = models.ManyToManyField(
         Item,
-        through='ThroughModel',
+        through='Inventory',
         through_fields=('character', 'item')
     )
 
@@ -44,10 +45,17 @@ class Character(models.Model):
     class Meta:
         ordering = ['level']
 
-class ThroughModel(models.Model):
+class Inventory(models.Model):
     character = models.ForeignKey(Character, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     qty = models.IntegerField(default=1)
+
+class InventoryInline(admin.TabularInline):
+    model = Inventory
+    extra = 1
+
+class CharacterAdmin(admin.ModelAdmin):
+    inlines = (InventoryInline, )
 
 class Monster(models.Model):
     name = models.CharField(max_length=50)
