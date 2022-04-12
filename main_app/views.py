@@ -1,5 +1,5 @@
 from pyexpat import model
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView
 from django.views.generic.base import TemplateView
 from django.views import View
@@ -71,7 +71,7 @@ class CharCreation(CreateView):
 
 @login_required
 def charInfo(request, charname):
-    character = Character.objects.get(name=charname)
+    character = get_object_or_404(Character, name=charname)
     data = dumps({
         "page": "charInfo",
         "level": character.level,
@@ -93,6 +93,19 @@ def battle(request, charname, monstername):
         "level": character.level,
     })
     if request.method == 'POST':
+        for item in monster.drops.all():
+            hasItem = False
+            print(item.name)
+            for each in character.inventory_set.all():
+                if item.name == each.item.name:
+                    each.qty += 1
+                    each.save()
+                    print("Has Item")
+                    hasItem = True
+                    break
+            if not hasItem:
+                character.inv.add(item)
+                print("Doesnt have item")
         character.addExp(monster.expYield)
         character.save()
         return HttpResponseRedirect('/'+character.name+'/monster_list/')

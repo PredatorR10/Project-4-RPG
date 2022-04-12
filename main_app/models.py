@@ -43,12 +43,15 @@ class Character(models.Model):
         return self.name
 
     class Meta:
-        ordering = ['level']
+        ordering = ['-level']
 
 class Inventory(models.Model):
     character = models.ForeignKey(Character, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     qty = models.IntegerField(default=1)
+
+    def __str__(self):
+        return (self.character.name+":"+self.item.name)
 
 class InventoryInline(admin.TabularInline):
     model = Inventory
