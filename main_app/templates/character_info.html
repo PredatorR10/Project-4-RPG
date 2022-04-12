@@ -4,7 +4,6 @@
     <a href="/{{character.name}}/monster_list">Monsters</a>
 {% endblock %}
 {% block content %}
-    <div style="display: none" id="jsonData" data-json="{{data}}"></div>
     <h1>{{character.name}}</h1>
     <h3>Level {{character.level}} {{character.charClass}}</h3>
     <p>Experience: <progress value="{{character.exp}}" max="{{character.expReq}}"></progress></p>
