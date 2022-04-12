@@ -5,9 +5,20 @@
 {% endblock %}
 {% block content %}
     <h1>Equipment:</h1>
+    <form action="post">
+        {% csrf_token %}
+        <button name="unequip">Unequip</button>
+    </form>
+
     <h1>Inventory:</h1>
     {% for each in character.inventory_set.all %}
         <p>{{each.item.name}}</p>
         <p>{{each.qty}}</p>
+        {% if each.item.equipable %}
+            <form method="post">
+                {% csrf_token %}
+                <button name="equip">Equip</button>
+            </form>
+        {% endif %}
     {% endfor %}
 {% endblock %}

@@ -100,12 +100,10 @@ def battle(request, charname, monstername):
                 if item.name == each.item.name:
                     each.qty += 1
                     each.save()
-                    print("Has Item")
                     hasItem = True
                     break
             if not hasItem:
                 character.inv.add(item)
-                print("Doesnt have item")
         character.addExp(monster.expYield)
         character.save()
         return HttpResponseRedirect('/'+character.name+'/monster_list/')
@@ -115,5 +113,8 @@ def battle(request, charname, monstername):
 @login_required
 def inventory(request, charname):
     character = Character.objects.get(name=charname)
-    print(character.inv.all())
+    if 'equip' in request.POST:
+        print("equip")
+    elif 'unequip' in request.POST:
+        print("unequip")
     return render(request, 'inventory.html', {'character': character})
