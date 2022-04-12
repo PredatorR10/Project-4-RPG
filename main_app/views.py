@@ -72,11 +72,7 @@ class CharCreation(CreateView):
 @login_required
 def charInfo(request, charname):
     character = get_object_or_404(Character, name=charname)
-    data = dumps({
-        "page": "charInfo",
-        "level": character.level,
-    })
-    return render(request, 'character_info.html', {'character': character, 'data': data})
+    return render(request, 'character_info.html', {'character': character})
 
 @login_required
 def monsters(request, charname):
@@ -90,7 +86,8 @@ def battle(request, charname, monstername):
     monster = Monster.objects.get(name=monstername)
     data = dumps({
         "page": "battle",
-        "level": character.level,
+        "charAttack": character.attack,
+        "monAttack": monster.attack
     })
     if request.method == 'POST':
         for item in monster.drops.all():

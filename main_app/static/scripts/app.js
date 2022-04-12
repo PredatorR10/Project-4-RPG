@@ -3,13 +3,12 @@ let data = JSON.parse(document.getElementById("jsonData").getAttribute("data-jso
 if(data.page === "battle") {
     const player = document.getElementById("player").innerText
     const monster = document.getElementById("monster").innerText
-    let playerHP = calcHealth()
-    let playerMP = calcMana()
-    let playerAttack = calcAttack()
-    document.getElementById("playerHealth").max = calcHealth()
-    document.getElementById("playerMana").max = calcMana()
+    let playerHP = document.getElementById("playerHealth").max
+    let playerMP = document.getElementById("playerMana").max
+    let playerAttack = data.charAttack
     let monsterHP = document.getElementById("monsterHealth").max
     let monsterMP = document.getElementById("monsterMana").max
+    let monsterAttack = data.monAttack
     const log = document.getElementById("combatLog")
     let turn = true
 
@@ -20,12 +19,10 @@ if(data.page === "battle") {
         document.getElementById("monsterMana").value = monsterMP
     }
 
-    refresh()
-
-    const monsterAttack = () => {
-        playerHP -= 10
+    const monsterTurn = () => {
+        playerHP -= monsterAttack
         let p = document.createElement("p")
-        log.append(`${monster} attacks ${player} and deals ${10} damage!`, p)
+        log.append(`${monster} attacks ${player} and deals ${monsterAttack} damage!`, p)
         refresh()
         turn = true
     }
@@ -37,7 +34,7 @@ if(data.page === "battle") {
             let p = document.createElement("p")
             log.append(`${player} attacks ${monster} and deals ${playerAttack} damage!`, p)
             refresh()
-            setTimeout(() => { monsterAttack()}, 700)
+            setTimeout(() => { monsterTurn()}, 700)
         }
     }
 
@@ -46,5 +43,3 @@ if(data.page === "battle") {
     })
 
 }
-
-console.log(data)
