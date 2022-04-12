@@ -114,6 +114,7 @@ def battle(request, charname, monstername):
 def inventory(request, charname):
     character = Character.objects.get(name=charname)
     if 'equip' in request.POST:
+        print(request.POST.get("equip", ""))
         print("equip")
     elif 'unequip' in request.POST:
         print("unequip")

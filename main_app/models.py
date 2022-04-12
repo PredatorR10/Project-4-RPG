@@ -30,9 +30,6 @@ class Character(models.Model):
         through='Inventory',
         through_fields=('character', 'item')
     )
-    equipment = models.ManyToManyField(Item)
-
-    
 
     def addExp(self, gain):
         self.exp += gain
