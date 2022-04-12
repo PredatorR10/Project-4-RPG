@@ -23,6 +23,7 @@ class Character(models.Model):
     exp = models.IntegerField(default=0)
     expReq = models.IntegerField(default=1000)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # inventory = models.ManyToManyField()
 
     def addExp(self, gain):
         self.exp += gain
@@ -44,6 +45,7 @@ class Monster(models.Model):
     health = models.IntegerField()
     mana = models.IntegerField()
     expYield = models.IntegerField()
+    drops = models.ManyToManyField(Item)
 
     def __str__(self):
         return self.name
