@@ -16,6 +16,9 @@ from json import dumps
 
 # Create your views here.
 
+def home(request):
+    return render(request, 'home.html')
+
 def signup_view(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
