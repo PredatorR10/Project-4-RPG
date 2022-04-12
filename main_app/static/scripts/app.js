@@ -1,23 +1,5 @@
 let data = JSON.parse(document.getElementById("jsonData").getAttribute("data-json"))
 
-const calcHealth = () => {
-    return ((data.level - 1) * 20 + 100)
-}
-
-const calcMana = () => {
-    return ((data.level - 1) * 10 + 50)
-}
-
-const calcAttack = () => {
-    return ((data.level - 1) * 3 + 7)
-}
-
-if(data.page === "charInfo") {
-    document.getElementById("health").innerText = `Health: ${calcHealth()}`
-    document.getElementById("mana").innerText = `Mana: ${calcMana()}`
-    document.getElementById("attack").innerText = `Attack: ${calcAttack()}`
-}
-
 if(data.page === "battle") {
     const player = document.getElementById("player").innerText
     const monster = document.getElementById("monster").innerText

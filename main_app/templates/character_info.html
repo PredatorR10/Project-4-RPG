@@ -8,8 +8,8 @@
     <h1>{{character.name}}</h1>
     <h3>Level {{character.level}} {{character.charClass}}</h3>
     <p>Experience: <progress value="{{character.exp}}" max="{{character.expReq}}"></progress></p>
-    <h3 id="health">Health: </h3>
-    <h3 id="mana">Mana: </h3>
-    <h3 id="attack">Attack: </h3>
+    <h3>Health: {{character.health}}</h3>
+    <h3>Mana: {{character.mana}}</h3>
+    <h3>Attack: {{character.attack}}</h3>
     <a href="/{{character.name}}/inventory">Inventory</a>
 {% endblock %}

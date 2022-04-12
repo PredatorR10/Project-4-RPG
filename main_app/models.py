@@ -23,6 +23,9 @@ class Character(models.Model):
     name = models.CharField(max_length=50)
     charClass = models.CharField(max_length=20, choices = CLASS_CHOICES)
     level = models.IntegerField(default=1)
+    health = models.IntegerField(default=100)
+    mana = models.IntegerField(default=50)
+    attack = models.IntegerField(default=7)
     exp = models.IntegerField(default=0)
     expReq = models.IntegerField(default=1000)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -52,6 +55,9 @@ class Character(models.Model):
             self.exp -= self.expReq
             self.expReq += 500
             self.level += 1
+            self.health += 20
+            self.mana += 10
+            self.attack += 3
         return self.exp
 
     def __str__(self):
@@ -81,6 +87,7 @@ class Monster(models.Model):
     level = models.IntegerField()
     health = models.IntegerField()
     mana = models.IntegerField()
+    attack = models.IntegerField()
     expYield = models.IntegerField()
     drops = models.ManyToManyField(Item)
 
