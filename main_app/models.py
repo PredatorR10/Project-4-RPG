@@ -11,9 +11,17 @@ CLASS_CHOICES = (
     ("Mage", "Mage")
 )
 
+SLOT_CHOICES = (
+    ("Armor", "Armor"),
+    ("Weapon", "Weapon")
+)
+
 class Item(models.Model):
     name = models.CharField(max_length=50)
     equipable = models.BooleanField(default=False)
+    equipSlot = models.CharField(max_length=20, choices = SLOT_CHOICES)
+    statHealth = models.IntegerField(blank=True, null=True)
+    statAttack = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.name
