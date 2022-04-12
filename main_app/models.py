@@ -36,7 +36,13 @@ class Character(models.Model):
         for each in self.inventory_set.all():
             if each.item.name == item:
                 each.equiped = True
-                print(each.equiped)
+                each.save()
+                return
+
+    def unequip(self, item):
+        for each in self.inventory_set.all():
+            if each.item.name == item:
+                each.equiped = False
                 each.save()
                 return
 

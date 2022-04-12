@@ -8,9 +8,9 @@
     {% for each in character.inventory_set.all %}
         {% if each.equiped %}
             <p>{{each.item.name}}</p>
-            <form action="post">
+            <form method="post">
                 {% csrf_token %}
-                <button name="unequip">Unequip</button>
+                <button name="unequip" value="{{each.item.name}}">Unequip</button>
             </form>
         {% endif %}
     {% endfor %}
