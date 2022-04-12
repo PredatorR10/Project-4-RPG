@@ -17,7 +17,7 @@
         {% if each.item.equipable %}
             <form method="post">
                 {% csrf_token %}
-                <button name="equip" value="{{each}}">Equip</button>
+                <button name="equip" value="{{each.item.name}}">Equip</button>
             </form>
         {% endif %}
     {% endfor %}

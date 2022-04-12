@@ -6,7 +6,7 @@ from django.views import View
 from django.views.generic.edit import DeleteView, CreateView, UpdateView
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from .models import Character, Monster
+from .models import Character, Monster, Inventory
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -114,8 +114,8 @@ def battle(request, charname, monstername):
 def inventory(request, charname):
     character = Character.objects.get(name=charname)
     if 'equip' in request.POST:
-        print(request.POST.get("equip", ""))
-        print("equip")
+        item = request.POST.get("equip", "")
+        character.equip(item)
     elif 'unequip' in request.POST:
         print("unequip")
     return render(request, 'inventory.html', {'character': character})
