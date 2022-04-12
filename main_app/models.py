@@ -46,6 +46,11 @@ class Character(models.Model):
     def equip(self, item):
         for each in self.inventory_set.all():
             if each.item.name == item:
+                slot = each.item.equipSlot
+                for gear in self.inventory_set.all():
+                    if gear.item.equipSlot == slot and gear.equiped == True:
+                        self.unequip(gear.item.name)
+                        print(gear.item.name)
                 each.equiped = True
                 if(each.item.statHealth):
                     self.health += each.item.statHealth
