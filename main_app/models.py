@@ -16,6 +16,7 @@ class Item(models.Model):
     def __str__(self):
         return self.name
 
+
 class Character(models.Model):
     name = models.CharField(max_length=50)
     charClass = models.CharField(max_length=20, choices = CLASS_CHOICES)
@@ -23,7 +24,11 @@ class Character(models.Model):
     exp = models.IntegerField(default=0)
     expReq = models.IntegerField(default=1000)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    # inventory = models.ManyToManyField()
+    inventory = models.ManyToManyField(
+        Item,
+        through='ThroughModel',
+        through_fields=('character', 'item')
+    )
 
     def addExp(self, gain):
         self.exp += gain
@@ -38,6 +43,11 @@ class Character(models.Model):
 
     class Meta:
         ordering = ['level']
+
+class ThroughModel(models.Model):
+    character = models.ForeignKey(Character, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    qty = models.IntegerField(default=1)
 
 class Monster(models.Model):
     name = models.CharField(max_length=50)
