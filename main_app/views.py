@@ -116,6 +116,7 @@ def inventory(request, charname):
     if 'equip' in request.POST:
         item = request.POST.get("equip", "")
         character.equip(item)
+        character.save()
     elif 'unequip' in request.POST:
         print("unequip")
     return render(request, 'inventory.html', {'character': character})

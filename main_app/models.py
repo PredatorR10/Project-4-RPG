@@ -35,7 +35,9 @@ class Character(models.Model):
     def equip(self, item):
         for each in self.inventory_set.all():
             if each.item.name == item:
-                each.item.equipable == True
+                each.equiped = True
+                print(each.equiped)
+                each.save()
                 return
 
     def addExp(self, gain):
