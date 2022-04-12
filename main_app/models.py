@@ -47,6 +47,11 @@ class Character(models.Model):
         for each in self.inventory_set.all():
             if each.item.name == item:
                 each.equiped = True
+                if(each.item.statHealth):
+                    self.health += each.item.statHealth
+                if(each.item.statAttack):
+                    self.attack += each.item.statAttack
+                self.save()
                 each.save()
                 return
 
@@ -54,6 +59,11 @@ class Character(models.Model):
         for each in self.inventory_set.all():
             if each.item.name == item:
                 each.equiped = False
+                if(each.item.statHealth):
+                    self.health -= each.item.statHealth
+                if(each.item.statAttack):
+                    self.attack -= each.item.statAttack
+                self.save()
                 each.save()
                 return
 
