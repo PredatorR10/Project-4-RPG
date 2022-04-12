@@ -6,7 +6,7 @@ from django.views import View
 from django.views.generic.edit import DeleteView, CreateView, UpdateView
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from .models import Character, Monster
+from .models import Character, Monster, Inventory
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -100,12 +100,10 @@ def battle(request, charname, monstername):
                 if item.name == each.item.name:
                     each.qty += 1
                     each.save()
-                    print("Has Item")
                     hasItem = True
                     break
             if not hasItem:
                 character.inv.add(item)
-                print("Doesnt have item")
         character.addExp(monster.expYield)
         character.save()
         return HttpResponseRedirect('/'+character.name+'/monster_list/')
@@ -115,5 +113,10 @@ def battle(request, charname, monstername):
 @login_required
 def inventory(request, charname):
     character = Character.objects.get(name=charname)
-    print(character.inv.all())
+    if 'equip' in request.POST:
+        item = request.POST.get("equip", "")
+        character.equip(item)
+    elif 'unequip' in request.POST:
+        item = request.POST.get("unequip", "")
+        character.unequip(item)
     return render(request, 'inventory.html', {'character': character})

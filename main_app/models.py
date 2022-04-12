@@ -1,3 +1,4 @@
+from operator import truediv
 from django.db import models
 from django.contrib import admin
 from django.contrib.auth.models import User
@@ -31,6 +32,20 @@ class Character(models.Model):
         through_fields=('character', 'item')
     )
 
+    def equip(self, item):
+        for each in self.inventory_set.all():
+            if each.item.name == item:
+                each.equiped = True
+                each.save()
+                return
+
+    def unequip(self, item):
+        for each in self.inventory_set.all():
+            if each.item.name == item:
+                each.equiped = False
+                each.save()
+                return
+
     def addExp(self, gain):
         self.exp += gain
         if self.exp >= self.expReq:
@@ -49,6 +64,7 @@ class Inventory(models.Model):
     character = models.ForeignKey(Character, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     qty = models.IntegerField(default=1)
+    equiped = models.BooleanField(default=False)
 
     def __str__(self):
         return (self.character.name+":"+self.item.name)
