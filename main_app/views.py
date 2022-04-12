@@ -98,3 +98,9 @@ def battle(request, charname, monstername):
         return HttpResponseRedirect('/'+character.name+'/monster_list/')
 
     return render(request, 'battle.html', {'character': character, 'monster': monster, 'data': data})
+
+@login_required
+def inventory(request, charname):
+    character = Character.objects.get(name=charname)
+    print(character.inv.all())
+    return render(request, 'inventory.html', {'character': character})

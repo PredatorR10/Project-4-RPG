@@ -1,0 +1,13 @@
+{% extends 'base.html' %} 
+{% block addlink %}
+    <a href="/{{character.name}}">Character Page</a>
+    <a href="/{{character.name}}/monster_list">Monsters</a>
+{% endblock %}
+{% block content %}
+    <h1>Equipment:</h1>
+    <h1>Inventory:</h1>
+    {% for each in character.inventory_set.all %}
+        <p>{{each.item.name}}</p>
+        <p>{{each.qty}}</p>
+    {% endfor %}
+{% endblock %}
