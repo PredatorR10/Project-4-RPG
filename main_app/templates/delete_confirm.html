@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        <p>Are you sure you want to delete {{character.name}}</p>
+        <p>Level: {{character.level}} {{character.charClass}}</p>
+        <button type="submit">Yes</button>
+        <a href="/{{character.name}}">No</a>
+    </form>
+{% endblock %}

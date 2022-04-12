@@ -10,5 +10,6 @@ urlpatterns = [
     path('<charname>/', views.charInfo, name="character_info"),
     path('<charname>/monster_list/', views.monsters, name="monster_list"),
     path('<charname>/battle/<monstername>/', views.battle, name="battle"),
-    path('<charname>/inventory/', views.inventory, name="inventory")
+    path('<charname>/inventory/', views.inventory, name="inventory"),
+    path('<charname>/delete', views.CharacterDelete, name="character_delete")
 ]

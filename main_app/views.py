@@ -117,3 +117,22 @@ def inventory(request, charname):
         item = request.POST.get("unequip", "")
         character.unequip(item)
     return render(request, 'inventory.html', {'character': character})
+
+@login_required
+def CharacterDelete(request, charname):
+    character = Character.objects.get(name=charname)
+    if request.method == 'POST':
+        character.delete()
+        return HttpResponseRedirect('/character_select/'+request.user.username)
+    return render(request, "delete_confirm.html", {'character': character})
+
+
+# @method_decorator(login_required, name='dispatch')
+# class CharacterDelete(DeleteView):
+#     model = Character
+#     template_name = "character_delete_confirm.html"
+#     def form_valid(self, form):
+#         self.object = form.save(commit=False)
+#         self.object.user = self.request.user
+#         self.object.save()
+#         return HttpResponseRedirect('/character_select/'+self.object.user.username)
