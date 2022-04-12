@@ -20,15 +20,23 @@ if(data.page === "battle") {
     }
 
     const monsterTurn = () => {
-        playerHP -= monsterAttack
-        let p = document.createElement("p")
-        log.append(`${monster} attacks ${player} and deals ${monsterAttack} damage!`, p)
-        refresh()
-        turn = true
+        if(monsterHP > 0) {
+            playerHP -= monsterAttack
+            let p = document.createElement("p")
+            log.append(`${monster} attacks ${player} and deals ${monsterAttack} damage!`, p)
+            refresh()
+            if(playerHP > 0) {
+                turn = true
+            } else {
+                document.getElementById("defeat").style.display = "block"
+            }
+        } else {
+            document.getElementById("victory").style.display = "block"
+        }
     }
 
     const attack = () => {
-        if(turn) {
+        if(turn && playerHP > 0 && monsterHP > 0) {
             turn = false
             monsterHP -= playerAttack
             let p = document.createElement("p")
@@ -41,5 +49,4 @@ if(data.page === "battle") {
     document.getElementById("attack").addEventListener("click", () => {
         attack()
     })
-
 }
