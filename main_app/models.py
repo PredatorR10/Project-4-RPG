@@ -9,6 +9,13 @@ CLASS_CHOICES = (
     ("Mage", "Mage")
 )
 
+class Item(models.Model):
+    name = models.CharField(max_length=50)
+    equipable = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
+
 class Character(models.Model):
     name = models.CharField(max_length=50)
     charClass = models.CharField(max_length=20, choices = CLASS_CHOICES)
