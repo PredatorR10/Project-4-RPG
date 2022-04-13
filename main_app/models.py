@@ -19,7 +19,7 @@ SLOT_CHOICES = (
 class Item(models.Model):
     name = models.CharField(max_length=50)
     equipable = models.BooleanField(default=False)
-    equipSlot = models.CharField(max_length=20, choices = SLOT_CHOICES)
+    equipSlot = models.CharField(max_length=20, choices = SLOT_CHOICES, blank=True, null=True)
     statHealth = models.IntegerField(blank=True, null=True)
     statAttack = models.IntegerField(blank=True, null=True)
 
