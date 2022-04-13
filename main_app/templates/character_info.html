@@ -6,10 +6,11 @@
 {% block content %}
     <h1>{{character.name}}</h1>
     <h3>Level {{character.level}} {{character.charClass}}</h3>
-    <p>Experience: <progress value="{{character.exp}}" max="{{character.expReq}}"></progress></p>
+    <p>Experience({{character.exp}}/{{character.expReq}}):</p>
+    <progress id="expInfo" class="nes-progress is-warning" value="{{character.exp}}" max="{{character.expReq}}"></progress>
     <h3>Health: {{character.health}}</h3>
     <h3>Mana: {{character.mana}}</h3>
     <h3>Attack: {{character.attack}}</h3>
-    <a href="/{{character.name}}/inventory">Inventory</a>
-    <a href="/{{character.name}}/delete">Delete</a>
+    <a class="nes-btn is-primary" href="/{{character.name}}/inventory">Inventory</a>
+    <a id="delete" class="nes-btn is-error" href="/{{character.name}}/delete">Delete</a>
 {% endblock %}

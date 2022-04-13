@@ -6,30 +6,50 @@
 {% block content %}
     <div style="display: none" id="jsonData" data-json="{{data}}"></div>
 
-    <h1 id="player">{{character.name}}</h1>
-    <h3>Level {{character.level}}</h3>
-    <button id="attack">Attack</button>
-    <p>Health: <progress id="playerHealth" value="{{character.health}}" max="{{character.health}}"></progress></p>
-    <p>Mana: <progress id="playerMana" value="{{character.mana}}" max="{{character.mana}}"></progress></p>
-    <p>Experience: <progress value="{{character.exp}}" max="{{character.expReq}}"></progress></p>
-
-    <div id="combatLog">
-        <p>Log:</p>
-    </div>
-
-    <h1 id="monster">{{monster.name}}</h1>
-    <h3>Level {{monster.level}}</h3>
-    <p>Health: <progress id="monsterHealth" value="{{monster.health}}" max="{{monster.health}}"></progress></p>
-    <p>Mana: <progress id="monsterMana" value="{{monster.mana}}" max="{{monster.mana}}"></progress></p>
-    
     <div style="display: none" id="defeat">
-        <a href="/{{character.name}}/monster_list">Return</a>
+        <h1>Defeat</h1>
+        <a class="nes-btn is-error" href="/{{character.name}}/monster_list">Return</a>
     </div>
 
     <div style="display: none" id="victory">
+        <h1>Victory</h1>
+        <p>You got:</p>
+        <p>{{monster.expYield}} Experience</p>
+        {% for item in monster.drops.all %}
+            {{item.name}}
+        {% endfor %}
         <form method="post">
             {% csrf_token %}
-            <button type="submit">Submit</button>
+            <button class="nes-btn is-success" type="submit">Confirm</button>
         </form>
+    </div>
+
+    <div id="battleContainer">
+        <div id="pdiv">
+            <h1 id="player">{{character.name}}</h1>
+            <h3>Level {{character.level}}</h3>
+            <button class="nes-btn" id="attack">Attack</button>
+            <p>Health:</p>
+            <progress id="playerHealth" class="nes-progress is-error"value="{{character.health}}" max="{{character.health}}"></progress>
+            <p>Mana:</p>
+            <progress id="playerMana" class="nes-progress is-primary" value="{{character.mana}}" max="{{character.mana}}"></progress>
+            <p>Experience:</p>
+            <progress class="nes-progress is-warning" value="{{character.exp}}" max="{{character.expReq}}"></progress>
+        </div>
+
+        <div id="log">
+            <p>Log:</p>
+            <div id="combatLog">
+            </div>
+        </div>
+
+        <div id="mondiv">
+            <h1 id="monster">{{monster.name}}</h1>
+            <h3>Level {{monster.level}}</h3>
+            <p>Health:</p>
+            <progress id="monsterHealth"  class="nes-progress is-error" value="{{monster.health}}" max="{{monster.health}}"></progress>
+            <p>Mana:</p>
+            <progress id="monsterMana" class="nes-progress is-primary" value="{{monster.mana}}" max="{{monster.mana}}"></progress>
+        </div>
     </div>
 {% endblock %}

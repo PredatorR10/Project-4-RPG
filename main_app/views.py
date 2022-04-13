@@ -28,7 +28,7 @@ def signup_view(request):
             print('HEY', user.username)
             return HttpResponseRedirect('/user/'+str(user))
         else:
-            HttpResponse('<h1>Try Again</h1>')
+            return render(request, 'signup.html', {'form': form})
     else:
         form = UserCreationForm()
         return render(request, 'signup.html', {'form': form})
@@ -45,12 +45,15 @@ def login_view(request):
             p = form.cleaned_data['password']
             user = authenticate(username = u, password = p)
             if user is not None:
-                login(request, user)
-                return HttpResponseRedirect('/character_select/'+u)
+                if user.is_active:
+                    login(request, user)
+                    return HttpResponseRedirect('/character_select/'+u)
+                else:
+                    return render(request, 'login.html', {'form': form})
             else:
-                print('The account has been disabled')
-        else:
-            print('The username and/or password is incorect.')
+                return render(request, 'login.html', {'form': form})
+        else: 
+            return render(request, 'signup.html', {'form': form})
     else:
         form = AuthenticationForm()
         return render(request, 'login.html', {'form': form})

@@ -3,8 +3,9 @@
 {% block content %}
     <h1>{{ username }}'s characters</h1>
     {% for character in characters %}
-        <p>{{character.name}}</p>
-        <a href="/{{character.name}}">Enter</a>
+        <p>{{character.name}}: Level {{character.level}} {{character.charClass}}</p>
+        <a class="nes-btn is-primary" href="/{{character.name}}">Enter</a>
     {% endfor %}
-    <a href="/character_creation">Create</a>
+    <br>
+    <a id="charCreate" class="nes-btn is-success" href="/character_creation">Create</a>
 {% endblock %}

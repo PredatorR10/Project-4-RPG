@@ -24,6 +24,7 @@ if(data.page === "battle") {
             playerHP -= monsterAttack
             let p = document.createElement("p")
             log.append(`${monster} attacks ${player} and deals ${monsterAttack} damage!`, p)
+            p.scrollIntoView()
             refresh()
             if(playerHP > 0) {
                 turn = true
@@ -41,6 +42,7 @@ if(data.page === "battle") {
             monsterHP -= playerAttack
             let p = document.createElement("p")
             log.append(`${player} attacks ${monster} and deals ${playerAttack} damage!`, p)
+            p.scrollIntoView()
             refresh()
             setTimeout(() => { monsterTurn()}, 700)
         }
