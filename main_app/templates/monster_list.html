@@ -4,10 +4,11 @@
     <a href="/{{character.name}}/monster_list">Monsters</a>
 {% endblock %}
 {% block content %}
-    <h1>{{character.name}}</h1>
-    <h1>Monsters</h1>
+    <h1>Monsters:</h1>
     {% for monster in monsters %}
-        <h3>{{monster.name}}</h3>
-        <a href="/{{character.name}}/battle/{{monster.name}}">Battle</a>
+        <div class="monsters">
+            <h3>{{monster.name}}</h3>
+            <a class="nes-btn is-primary" href="/{{character.name}}/battle/{{monster.name}}">Battle</a>
+        </div>
     {% endfor %}
 {% endblock %}

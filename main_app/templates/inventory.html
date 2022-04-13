@@ -4,35 +4,49 @@
     <a href="/{{character.name}}/monster_list">Monsters</a>
 {% endblock %}
 {% block content %}
-    <h1>Equipment:</h1>
-    {% for each in character.inventory_set.all %}
-        {% if each.equiped %}
-            <p>{{each.item.name}}</p>
-            <form method="post">
-                {% csrf_token %}
-                <button name="unequip" value="{{each.item.name}}">Unequip</button>
-            </form>
-        {% endif %}
-    {% endfor %}
+    <div id="invContainer">
+        <div>
+            <h1>Equipment:</h1>
+            {% for each in character.inventory_set.all %}
+                {% if each.equiped %}
+                    <p>{{each.item.name}}</p>
+                    {% if each.item.statHealth %}
+                        <p>Health +{{each.item.statHealth}}</p>
+                    {% endif %}
+                    {% if each.item.statAttack %}
+                        <p>Attack +{{each.item.statAttack}}</p>
+                    {% endif %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <button class="nes-btn is-error" name="unequip" value="{{each.item.name}}">Unequip</button>
+                    </form>
+                {% endif %}
+                <br>
+            {% endfor %}
+        </div>
 
-    <h1>Inventory:</h1>
-    {% for each in character.inventory_set.all %}
-        <p>{{each.item.name}}</p>
-        <p>Quantity: {{each.qty}}</p>
-        {% if each.item.statHealth %}
-            <p>Health +{{each.item.statHealth}}</p>
-        {% endif %}
-        {% if each.item.statAttack %}
-            <p>Attack +{{each.item.statAttack}}</p>
-        {% endif %}
-        {% if each.item.equipable and not each.equiped %}
-            <form method="post">
-                {% csrf_token %}
-                <button name="equip" value="{{each.item.name}}">Equip</button>
-            </form>
-        {% endif %}
-        {% if each.item.equipable and each.equiped %}
-            <p>Equiped</p>
-        {% endif %}
-    {% endfor %}
+        <div>
+            <h1>Inventory:</h1>
+            {% for each in character.inventory_set.all %}
+                <p>{{each.item.name}}</p>
+                <p>Quantity: {{each.qty}}</p>
+                {% if each.item.statHealth %}
+                    <p>Health +{{each.item.statHealth}}</p>
+                {% endif %}
+                {% if each.item.statAttack %}
+                    <p>Attack +{{each.item.statAttack}}</p>
+                {% endif %}
+                {% if each.item.equipable and not each.equiped %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <button class="nes-btn is-primary" name="equip" value="{{each.item.name}}">Equip</button>
+                    </form>
+                {% endif %}
+                {% if each.item.equipable and each.equiped %}
+                    <p class="nes-text is-success">Equiped</p>
+                {% endif %}
+                <br>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
