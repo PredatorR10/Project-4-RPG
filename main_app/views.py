@@ -26,7 +26,7 @@ def signup_view(request):
             user = form.save()
             login(request, user)
             print('HEY', user.username)
-            return HttpResponseRedirect('/user/'+str(user))
+            return HttpResponseRedirect('/')
         else:
             return render(request, 'signup.html', {'form': form})
     else:

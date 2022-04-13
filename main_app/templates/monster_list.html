@@ -7,7 +7,7 @@
     <h1>Monsters:</h1>
     {% for monster in monsters %}
         <div class="monsters">
-            <h3>{{monster.name}}</h3>
+            <h3>{{monster.name}}: Level {{monster.level}}</h3>
             <a class="nes-btn is-primary" href="/{{character.name}}/battle/{{monster.name}}">Battle</a>
         </div>
     {% endfor %}
